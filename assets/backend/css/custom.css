@@ -1,0 +1,44 @@
+.sidebar .nav-item .nav-link{
+    padding: 15px 20px !important;
+}
+
+.sidebar .nav-item .nav-link span{
+    font-size: 16px !important;
+}
+
+.sidebar-dark{
+    background-color: #0f172a; /* สีเมนูด้านข้าง */
+}
+
+.sidebar .nav-item .collapse .collapse-inner .collapse-item, .sidebar .nav-item .collapsing .collapse-inner .collapse-item{
+    color: #ffffff;
+    font-size: 16px;
+}
+
+.sidebar .nav-item .collapse .collapse-inner .collapse-item:hover, .sidebar .nav-item .collapsing .collapse-inner .collapse-item:hover{
+    background-color: #17264b;
+}
+
+.sidebar .sidebar-heading{
+    font-size: 12px !important;
+}
+
+.sidebar .nav-item .collapse{
+    background-color: #0f172a;
+}
+
+form.user .form-control-user{
+    font-size: 1rem !important;
+}
+
+form.user .custom-checkbox.small label{
+    font-size: 1rem !important;
+}
+
+form.user .btn-user {
+    font-size: 1rem !important;
+}
+
+.small, small{
+    font-size: 100% !important;
+}
