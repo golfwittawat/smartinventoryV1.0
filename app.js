@@ -6,6 +6,9 @@ const expressLayouts = require("express-ejs-layouts");
 
 // Import Router frontend.js
 const frontendRouter = require("./routes/frontend");
+// Import Router backend.js
+const backendRouter = require('./routes/backend')
+
 
 // Create express object
 const app = express();
@@ -20,6 +23,8 @@ app.set("view engine", "ejs");
 
 // เรียกใช้งาน Routes
 app.use("/", frontendRouter);
+app.use('/backend', backendRouter)
+
 
 // Run Express Server ที่ Port 5000
 app.listen(5000, () => {
