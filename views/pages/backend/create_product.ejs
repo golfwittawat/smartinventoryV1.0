@@ -1,0 +1,61 @@
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="mb-5 d-sm-flex align-items-center justify-content-between">
+        <h1 class="mb-0 text-gray-800 h3"><%- heading %></h1>
+        <a href="/backend/products" class="shadow-sm d-sm-inline-block btn btn-warning"><i
+                class="fas fa-arrow-left fa-sm text-white-50"></i> Back</a>
+    </div>
+
+    <!-- Content Row -->
+    <div class="row">
+        <div class="col-md-6 offset-md-3 card">
+            <div class="card-body">
+
+                <form action="/backend/create_product" method="POST">
+                    <div class="form-group row">
+                        <label for="ProductName" class="col-md-4 col-form-label">Name</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="ProductName">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="CategoryID" class="col-md-4 col-form-label">Category</label>
+                        <div class="col-md-8">
+                            <select name="CategoryID" id="CategoryID" class="form-control">
+                                <option value="1">Mobile</option>
+                                <option value="2">Tablet</option>
+                                <option value="3">Head Phone</option>
+                                <option value="4">Labtop</option>
+                                <option value="5">Smart Watch</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="UnitPrice" class="col-md-4 col-form-label">Price</label>
+                        <div class="col-md-8">
+                            <input type="number" min="1" step="any" class="form-control" name="UnitPrice">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="UnitInStock" class="col-md-4 col-form-label">Stock</label>
+                        <div class="col-md-8">
+                            <input type="number" class="form-control" name="UnitInStock">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="ProductPicture" class="col-md-4 col-form-label">Image URL</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="ProductPicture">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputName" class="col-md-4 col-form-label">&nbsp;</label>
+                        <div class="col-md-8">
+                            <input type="submit" class="btn btn-success" value="Add" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
