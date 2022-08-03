@@ -1,0 +1,72 @@
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="mb-4 d-sm-flex align-items-center justify-content-between">
+        <h1 class="mb-0 text-gray-800 h3"><%- heading %></h1>
+
+        <div>
+            <a href="/backend/create_product" class="shadow-sm d-none d-sm-inline-block btn btn-sm btn-success"><i
+                    class="fas fa-plus fa-sm text-white-50"></i> Add new product</a>
+
+            <a href="/backend/exportcsv_product" class="shadow-sm d-none d-sm-inline-block btn btn-sm btn-info"><i
+                    class="fas fa-file-excel fa-sm text-white-50"></i> Export CSV</a>
+
+            <a href="/backend/exportpdf_product" class="shadow-sm d-none d-sm-inline-block btn btn-sm btn-danger"><i
+                    class="fas fa-file-pdf fa-sm text-white-50"></i> Export PDF</a>
+        </div>
+
+    </div>
+
+    <!-- Content Row -->
+    <div class="row">
+        <div class="table-responsive">
+            <%
+                if(data.length)
+                {
+            %>
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr class="text-white bg-primary">
+                        <th>Image</th>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Qty</th>
+                        <th>Created</th>
+                        <th>Updated</th>
+                        <th>Manage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <%
+                    for(let row=0; row < data.length; row++)
+                    {
+                    %>
+                    <tr>
+                        <td><img src="<%=data[row].products[0].ProductPicture%>" width="50"></td>
+                        <td><%=data[row].products[0].ProductName%></td>
+                        <td><%=data[row].CategoryName%></td>
+                        <td><%=data[row].products[0].UnitPrice%></td>
+                        <td><%=data[row].products[0].UnitInStock%></td>
+                        <td><%=data[row].products[0].CreatedDate%></td>
+                        <td><%=data[row].products[0].ModifiedDate%></td>
+                        <td style="width: 200px">
+                            <a href="/backend/edit_product" class="btn btn-warning">Edit</a>
+                            <a href="/backend/delete_product" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                    <%
+                    }
+                    %>
+                </tbody>
+            </table>
+            <%
+                }else{
+            %>
+            <p>No Product found</p>
+            <%
+                }
+            %>
+        </div>
+    </div>
+
+</div>

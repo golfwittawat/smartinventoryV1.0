@@ -1,0 +1,64 @@
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="mb-4 d-sm-flex align-items-center justify-content-between">
+        <h1 class="mb-0 text-gray-800 h3"><%- heading %></h1>
+
+        <div>
+            <a href="/backend/create_category" class="shadow-sm d-none d-sm-inline-block btn btn-sm btn-success"><i
+                    class="fas fa-plus fa-sm text-white-50"></i> Add new category</a>
+        </div>
+
+    </div>
+
+    <!-- Content Row -->
+    <div class="row">
+        <div class="table-responsive">
+            <%
+                if(data.length)
+                {
+            %>
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr class="text-white bg-primary">
+                        <th>ID</th>
+                        <th>Category Name</th>
+                        <th>Status</th>
+                        <th>Created</th>
+                        <th>Updated</th>
+                        <th>Manage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <%
+                        for(let row=0; row < data.length; row++)
+                        {
+                    %>
+                    <tr>
+                        <td><%=data[row].CategoryID%></td>
+                        <td><%=data[row].CategoryName%></td>
+                        <td><%=data[row].CategoryStatus%></td>
+                        <td><%=data[row].CreatedDate%></td>
+                        <td><%=data[row].ModifiedDate%></td>
+                        <td style="width: 200px">
+                            <a href="/backend/edit_category" class="btn btn-warning">Edit</a>
+                            <a href="/backend/delete_category" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                    <%
+                        }
+                    %>
+                </tbody>
+            </table>
+            <%
+                }else{
+            %>
+            <p>No category found</p>
+            <%
+                }
+            %>
+
+
+        </div>
+    </div>
+
+</div>

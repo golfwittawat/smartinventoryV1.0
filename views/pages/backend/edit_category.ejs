@@ -1,0 +1,41 @@
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="mb-5 d-sm-flex align-items-center justify-content-between">
+        <h1 class="mb-0 text-gray-800 h3"><%- heading %></h1>
+        <a href="/backend/category" class="shadow-sm d-sm-inline-block btn btn-warning"><i
+                class="fas fa-arrow-left fa-sm text-white-50"></i> Back</a>
+    </div>
+
+    <!-- Content Row -->
+    <div class="row">
+        <div class="col-md-6 offset-md-3 card">
+            <div class="card-body">
+
+                <form action="/backend/category" method="POST">
+                    <div class="form-group row">
+                        <label for="CategoryName" class="col-md-4 col-form-label">Category Name</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="CategoryName">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="CategoryStatus" class="col-md-4 col-form-label">Category Status</label>
+                        <div class="col-md-8">
+                            <select name="CategoryStatus" id="CategoryStatus" class="form-control">
+                                <option value="1">Enable</option>
+                                <option value="2">Disable</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputName" class="col-md-4 col-form-label">&nbsp;</label>
+                        <div class="col-md-8">
+                            <input type="submit" class="btn btn-info" value="Update" />
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
