@@ -1,0 +1,38 @@
+const database = 'smartinvdb';
+
+// Create a new database.
+use(database);
+
+// การเพิ่ม document หลายรายการพร้อมกัน
+db.category.insertMany(
+    [
+        {
+            CategoryID: 1,
+            CategoryName: "Mobile",
+            CategoryStatus: 1,
+            CreatedDate: "2021-11-21T17:00:00.000Z",
+            ModifiedDate: "2021-11-21T17:00:00.000Z"
+        },
+        {
+            CategoryID: 2,
+            CategoryName: "Tablet",
+            CategoryStatus: 1,
+            CreatedDate: "2021-11-19T17:00:00.000Z",
+            ModifiedDate: "2021-11-19T17:00:00.000Z"
+        },
+        {
+            CategoryID: 3,
+            CategoryName: "Smart Watch",
+            CategoryStatus: 1,
+            CreatedDate: "2021-11-10T03:30:00.000Z",
+            ModifiedDate: "2021-11-12T03:30:00.000Z"
+        },
+        {
+            CategoryID: 4,
+            CategoryName: "Labtop",
+            CategoryStatus: 1,
+            CreatedDate: "2021-11-15T03:30:00.000Z",
+            ModifiedDate: "2021-11-15T03:30:00.000Z"
+        }
+    ]
+)

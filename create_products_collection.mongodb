@@ -1,0 +1,46 @@
+const database = 'smartinvdb';
+
+// Create a new database.
+use(database);
+
+// การเพิ่ม document หลายรายการพร้อมกัน
+db.products.insertMany(
+    [
+        {
+            CategoryID: 1,
+            ProductName: "iPhone 13 Pro Max",
+            UnitPrice: 55000,
+            ProductPicture: "https://www.mxphone.com/wp-content/uploads/2021/04/41117-79579-210401-iPhone12ProMax-xl-1200x675.jpg",
+            UnitInStock: 3,
+            CreatedDate: "2021-11-21T17:00:00.000Z",
+            ModifiedDate: "2021-11-21T17:00:00.000Z"
+        },
+        {
+            CategoryID: 2,
+            ProductName: "iPad Pro 2021",
+            UnitPrice: 18500,
+            ProductPicture: "https://cdn.siamphone.com/spec/apple/images/ipad_pro_12.9%E2%80%91inch/com_1.jpg",
+            UnitInStock: 10,
+            CreatedDate: "2021-11-19T17:00:00.000Z",
+            ModifiedDate: "2021-11-19T17:00:00.000Z"
+        },
+        {
+            CategoryID: 3,
+            ProductName: "Huawei Smartwatch WATCH GT3",
+            UnitPrice: 12500,
+            ProductPicture: "https://media-cdn.bnn.in.th/157143/Huawei-Smartwatch-WATCH-GT3-46mm-Active-Edition-Black-1-square_medium.jpg",
+            UnitInStock: 5,
+            CreatedDate: "2021-11-10T03:30:00.000Z",
+            ModifiedDate: "2021-11-12T03:30:00.000Z"
+        },
+        {
+            CategoryID: 4,
+            ProductName: "Macbook Pro M1",
+            UnitPrice: 45000,
+            ProductPicture: "https://www.apple.com/newsroom/images/product/mac/standard/Apple_MacBook-Pro_16-inch-Screen_10182021_big_carousel.jpg.large.jpg",
+            UnitInStock: 10,
+            CreatedDate: "2021-11-15T03:30:00.000Z",
+            ModifiedDate: "2021-11-15T03:30:00.000Z"
+        }
+    ]
+)
