@@ -1,0 +1,1 @@
+# smartinventoryV1.0
