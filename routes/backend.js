@@ -23,15 +23,15 @@ router.get("", (req, res) => {
 // Read Category อ่านดาต้าเบส
 router.get("/category", async (req, res) => {
   const category = await db.collection("category").find({}).toArray();
-  res.json(category);
+  //   res.json(category);
 
-  //   res.render("pages/backend/category", {
-  //     title: "Category",
-  //     heading: "Category",
-  //     layout: "./layouts/backend",
-  //     data: category,
-  //     moment: moment,
-  //   });
+  res.render("pages/backend/category", {
+    title: "Category",
+    heading: "Category",
+    layout: "./layouts/backend",
+    data: category,
+    moment: moment,
+  });
 });
 
 // Create Category
