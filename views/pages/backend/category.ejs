@@ -37,8 +37,8 @@
                         <td><%=data[row].CategoryID%></td>
                         <td><%=data[row].CategoryName%></td>
                         <td><%=data[row].CategoryStatus == 1 ? 'Enable':'Disable' %></td>
-                        <td><%=data[row].CreatedDate%></td>
-                        <td><%=data[row].ModifiedDate%></td>
+                        <td><%=moment(data[row].CreatedDate).format('DD/MM/YYYY HH:mm')%></td>
+                        <td><%=moment(data[row].ModifiedDate).format('DD/MM/YYYY HH:mm')%></td>
                         <td style="width: 200px">
                             <a href="/backend/edit_category" class="btn btn-warning">Edit</a>
                             <a href="/backend/delete_category" class="btn btn-danger">Delete</a>
