@@ -94,11 +94,38 @@ router.get("/edit_category", (req, res) => {
   });
 });
 
-router.get("/products", (req, res) => {
+// CRUD Product ================================================
+// Read Product
+router.get("/products", async (req, res) => {
+  // const products = await db.collection('products').find({}).toArray()
+
+  // Lookup from category and products collection
+  const products = await db
+    .collection("category")
+    .aggregate([
+      {
+        $lookup: {
+          from: "products",
+          localField: "CategoryID",
+          foreignField: "CategoryID",
+          as: "products",
+        },
+      },
+      {
+        $match: {
+          products: { $ne: [] },
+        },
+      },
+    ])
+    .toArray();
+
+  // res.json(products)
+
   res.render("pages/backend/products", {
     title: "Products",
     heading: "Products",
     layout: "./layouts/backend",
+    data: products,
   });
 });
 
