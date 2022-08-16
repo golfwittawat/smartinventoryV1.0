@@ -9,48 +9,47 @@
     <!-- Content Row -->
     <div class="row">
         <div class="col-md-6 offset-md-3 card">
-            <div class="card-body">
-                <% if(messages.error) { %>
-                <div class="alert alert-danger" role="alert">
-                    <%-messages.error%>
-                </div>
-                <% } %>
-
-                <% if(messages.success) { %>
-                <div class="alert alert-success" role="alert">
-                    <%-messages.success%>
-                </div>
-                <% } %>
-                <form action="/backend/create_category" method="POST">
-                    <div class="form-group row">
-                        <label for="CategoryID" class="col-md-4 col-form-label">Category ID</label>
-                        <div class="col-md-8">
-                            <input type="text" class="form-control" name="CategoryID">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="CategoryName" class="col-md-4 col-form-label">Category Name</label>
-                        <div class="col-md-8">
-                            <input type="text" class="form-control" name="CategoryName">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="CategoryStatus" class="col-md-4 col-form-label">Category Status</label>
-                        <div class="col-md-8">
-                            <select name="CategoryStatus" id="CategoryStatus" class="form-control">
-                                <option value="1">Enable</option>
-                                <option value="0">Disable</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="inputName" class="col-md-4 col-form-label">&nbsp;</label>
-                        <div class="col-md-8">
-                            <input type="submit" class="btn btn-success" value="Add" />
-                        </div>
-                    </div>
-                </form>
+            <% if(messages.error) { %>
+            <div class="alert alert-danger" role="alert">
+                <%-messages.error%>
             </div>
+            <% } %>
+
+            <% if(messages.success) { %>
+            <div class="alert alert-success" role="alert">
+                <%-messages.success%>
+            </div>
+            <% } %>
+            <form action="/backend/create_category" method="POST">
+                <div class="form-group row">
+                    <label for="CategoryID" class="col-md-4 col-form-label">Category ID</label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" name="CategoryID">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="CategoryName" class="col-md-4 col-form-label">Category Name</label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" name="CategoryName">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="CategoryStatus" class="col-md-4 col-form-label">Category Status</label>
+                    <div class="col-md-8">
+                        <select name="CategoryStatus" id="CategoryStatus" class="form-control">
+                            <option value="1">Enable</option>
+                            <option value="0">Disable</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputName" class="col-md-4 col-form-label">&nbsp;</label>
+                    <div class="col-md-8">
+                        <input type="submit" class="btn btn-success" value="Add" />
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
+</div>
 </div>
