@@ -41,7 +41,12 @@
                         <td><%=moment(data[row].ModifiedDate).format('DD/MM/YYYY HH:mm')%></td>
                         <td style="width: 200px">
                             <a href="/backend/edit_category/<%=data[row]._id%>" class="btn btn-warning">Edit</a>
-                            <a href="/backend/delete_category" class="btn btn-danger">Delete</a>
+                            <form id="delete_category_form"
+                                action="/backend/delete_category/<%=data[row]._id%>/resource?_method=DELETE"
+                                method='POST' style="display:inline-block">
+                                <button id="btn_delete_category" href="/backend/delete_category"
+                                    class="btn btn-danger">Delete</button>
+                            </form>
                         </td>
                     </tr>
                     <%

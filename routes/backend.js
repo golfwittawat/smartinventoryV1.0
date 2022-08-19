@@ -115,6 +115,63 @@ router.get("/edit_category/:id", async (req, res) => {
     data: category,
   });
 });
+// Edit Category PUT MEthod
+router.put("/edit_category/:id/:resource", async (req, res) => {
+  //   console.log(req.params.id);
+  const objID = new objectId(req.params.id);
+  const category = await db
+    .collection("category")
+    .find({ _id: objID })
+    .toArray();
+
+  // รับค่าจากฟอร์ม
+  //   let CategoryID = req.body.CategoryID; //ถ้าสร้างรับค่สตัวเลขสุดท้ายและ+1 มาแล้วไม่ต้องสร้าง
+  let CategoryName = req.body.CategoryName;
+  let CategoryStatus = req.body.CategoryStatus;
+  let curdatetime = moment(new Date()).format("YYYY-MM-DD HH:mm:ss");
+  let errors = false;
+
+  if (CategoryName.length === 0 || CategoryStatus === "") {
+    errors = true;
+    // แสดงข้อความแจ้งเตือน
+    req.flash("error", "ป้อนข้อมูลในฟิลด์ให้ครบก่อน");
+    // ให้ทำการ reload ฟอร์ม
+    res.render("pages/backend/edit_category", {
+      title: "Edit Category",
+      heading: "Edit Category",
+      layout: "./layouts/backend",
+      data: category,
+    });
+  } else {
+    // Update to mongodb
+    await db.collection("category").updateOne(
+      { _id: objID },
+      {
+        $set: {
+          CategoryName: CategoryName,
+          CategoryStatus: parseInt(CategoryStatus),
+          ModifiedDate: curdatetime,
+        },
+      }
+    );
+    // แสดงข้อความแจ้งเตือน
+    req.flash("success", "เพิ่มหมวดหมู่สินค้าเรียบร้อยแล้ว");
+    // ให้ทำการ reload ฟอร์ม
+    res.render("pages/backend/edit_category", {
+      title: "Edit Category",
+      heading: "Edit Category",
+      layout: "./layouts/backend",
+      data: category,
+    });
+  }
+
+  // DELETE Category  MEthod
+  router.delete("/delete_category/:id/:resource", async (req, res) => {
+    const objID = new objectId(req.params.id);
+    await db.collection("category").deleteOne({ _id: objID });
+    res.redirect("/backend/category");
+  });
+});
 
 // CRUD Product ================================================
 // Read Product

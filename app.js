@@ -10,6 +10,9 @@ const session = require("express-session");
 // Import EJS Layout
 const expressLayouts = require("express-ejs-layouts");
 
+//Import method-override
+const methodOverride = require("method-override");
+
 // Import Router frontend.js
 const frontendRouter = require("./routes/frontend");
 // Import Router backend.js
@@ -20,6 +23,9 @@ const app = express();
 
 // กำหนด Folder สำหรับบอกตัว express ว่าไฟล์ css , images อยู่ path ไหน
 app.use(express.static("assets"));
+
+//เรียกใช้ method-override
+app.use(methodOverride("_method"));
 
 // กำหนด Template Engine
 app.use(expressLayouts);
