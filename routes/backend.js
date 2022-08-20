@@ -164,13 +164,12 @@ router.put("/edit_category/:id/:resource", async (req, res) => {
       data: category,
     });
   }
-
-  // DELETE Category  MEthod
-  router.delete("/delete_category/:id/:resource", async (req, res) => {
-    const objID = new objectId(req.params.id);
-    await db.collection("category").deleteOne({ _id: objID });
-    res.redirect("/backend/category");
-  });
+});
+// DELETE Category  MEthod
+router.delete("/delete_category/:id/:resource", async (req, res) => {
+  const objID = new objectId(req.params.id);
+  await db.collection("category").deleteOne({ _id: objID });
+  res.redirect("/backend/category");
 });
 
 // CRUD Product ================================================
