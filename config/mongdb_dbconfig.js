@@ -4,7 +4,7 @@ const MongoClient = require("mongodb").MongoClient;
 // Mongodb Connection String
 // const url = "mongodb://localhost:27017/" // No user/passsword
 const url = "mongodb://admingolf:admingolf@localhost:27017/"; // With user/password/ With user/password
-
+//mongoose.connect('mongodb://admingolf:admingolf@localhost:27017/dbname?authSource=dbWithUserCredentials')
 var _db;
 var dbname = "smartinvdb";
 
