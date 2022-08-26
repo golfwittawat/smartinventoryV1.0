@@ -218,6 +218,76 @@ router.get("/create_product", async(req, res) => {
   });
 });
 
+// Create Product POST
+router.post('/create_product', async (req, res)=>{
+
+  const category = await db.collection('category').find({}).toArray()
+
+  // Increment ProductID
+  const product = await db.collection('products').findOne({}, {sort: {ProductID: -1}, limit: 1 })
+  // console.log(product.ProductID)
+
+  const productID = product.ProductID + 1
+  // console.log(productID)
+
+  // return 0
+
+  // รับค่าจากฟอร์ม
+  let ProductName = req.body.ProductName
+  let CategoryID = req.body.CategoryID
+  let UnitPrice = req.body.UnitPrice
+  let UnitInStock = req.body.UnitInStock
+  let ProductPicture = req.body.ProductPicture
+  let curdatetime = moment(new Date()).format("YYYY-MM-DD HH:mm:ss")
+  // let errors = false
+
+  // console.log(CategoryID+CategoryName+CategoryStatus)
+  // Validate ฟอร์มว่าป้อนข้อมูลครบหรือยัง
+  if(CategoryID === '' || ProductName.length === 0 || UnitPrice === '' || UnitInStock === '')
+  {
+      // errors = true
+      // แสดงข้อความแจ้งเตือน
+      req.flash('error','ป้อนข้อมูลในฟิลด์ให้ครบก่อน')
+      // ให้ทำการ reload ฟอร์ม
+      res.render(
+          'pages/backend/create_product', 
+          { 
+              title: 'Create Product', 
+              heading: 'Create Product',
+              layout: './layouts/backend',
+              category: category
+          }
+      )
+
+  }else{
+      // Insert to mongodb
+      await db.collection('products').insertOne({
+          ProductID: productID,
+          CategoryID: parseInt(CategoryID),
+          ProductName: ProductName,
+          UnitPrice: parseInt(UnitPrice),
+          ProductPicture: ProductPicture,
+          UnitInStock: parseInt(UnitInStock),
+          CreatedDate: curdatetime,
+          ModifiedDate: curdatetime
+      })
+
+      // แสดงข้อความแจ้งเตือน
+      req.flash('success','เพิ่มสินค้าเรียบร้อยแล้ว')
+
+      res.render(
+          'pages/backend/create_product', 
+          { 
+              title: 'Create Product', 
+              heading: 'Create Product',
+              layout: './layouts/backend',
+              category: category
+          }
+      )
+  }
+})
+
+
 // Edit Product
 router.get("/edit_product", (req, res) => {
   res.render("pages/backend/edit_product", {

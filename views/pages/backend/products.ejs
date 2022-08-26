@@ -26,6 +26,7 @@
             <table class="table table-bordered table-striped">
                 <thead>
                     <tr class="text-white bg-primary">
+                        <th>ID</th>
                         <th>Image</th>
                         <th>Name</th>
                         <th>Category</th>
@@ -42,6 +43,7 @@
                     {
                     %>
                     <tr>
+                        <td><%=data[row].products[0].ProductID%></td>
                         <td><img src="<%=data[row].products[0].ProductPicture%>" width="50"></td>
                         <td><%=data[row].products[0].ProductName%></td>
                         <td><%=data[row].CategoryName%></td>
