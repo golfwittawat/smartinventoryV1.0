@@ -208,11 +208,13 @@ router.get("/products", async (req, res) => {
 });
 
 // Create Product
-router.get("/create_product", (req, res) => {
+router.get("/create_product", async(req, res) => {
+  const category = await db.collection('category').find({}).sort({CategoryID:1}).toArray()
   res.render("pages/backend/create_product", {
     title: "Create Product",
     heading: "Create Product",
     layout: "./layouts/backend",
+    category:category
   });
 });
 
