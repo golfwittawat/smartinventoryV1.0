@@ -43,17 +43,19 @@
                     {
                     %>
                     <tr>
-                        <td><%=data[row].products[0].ProductID%></td>
-                        <td><img src="<%=data[row].products[0].ProductPicture%>" width="50"></td>
-                        <td><%=data[row].products[0].ProductName%></td>
-                        <td><%=data[row].CategoryName%></td>
-                        <td><%=data[row].products[0].UnitPrice%></td>
-                        <td><%=data[row].products[0].UnitInStock%></td>
-                        <td><%=data[row].products[0].CreatedDate%></td>
-                        <td><%=data[row].products[0].ModifiedDate%></td>
+                        <td><%=data[row].ProductID%></td>
+                        <td><img src="<%=data[row].ProductPicture%>" width="50"></td>
+                        <td><%=data[row].ProductName%></td>
+                        <td><%=data[row].category[0].CategoryName%></td>
+                        <td><%=data[row].UnitPrice%></td>
+                        <td><%=data[row].UnitInStock%></td>
+                        <td><%=moment(data[row].CreatedDate).format('DD/MM/YYYY HH:mm:ss')%></td>
+                        <td><%=moment(data[row].ModifiedDate).format('DD/MM/YYYY HH:mm:ss')%></td>
                         <td style="width: 200px">
-                            <a href="/backend/edit_product" class="btn btn-warning">Edit</a>
-                            <a href="/backend/delete_product" class="btn btn-danger">Delete</a>
+                            <a href="/backend/edit_product/<%=data[row]._id%>" class="btn btn-warning">Edit</a>
+                            <form id="delete_product_form" action="/backend/delete_product/<%=data[row]._id%>/resource?_method=DELETE" method="POST" style="display: inline-block;">
+                                <button class="btn btn-danger"type="submit" id="btn_delete_product">Delete</button>
+                            </form>
                         </td>
                     </tr>
                     <%

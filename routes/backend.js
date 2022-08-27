@@ -179,31 +179,36 @@ router.get("/products", async (req, res) => {
 
   // Lookup from category and products collection
   const products = await db
-    .collection("category")
+    .collection("products")
     .aggregate([
       {
         $lookup: {
-          from: "products",
+          from: "category",
           localField: "CategoryID",
           foreignField: "CategoryID",
-          as: "products",
+          as: "category",
         },
       },
       {
         $match: {
-          products: { $ne: [] },
+          products: { "$ne": [] },
         },
       },
+      {$sort:{
+        //"ProductID": -1
+        "_id":-1
+      }},
     ])
     .toArray();
 
   // res.json(products)
-
+// return 0
   res.render("pages/backend/products", {
     title: "Products",
     heading: "Products",
     layout: "./layouts/backend",
     data: products,
+    moment: moment
   });
 });
 
@@ -289,12 +294,85 @@ router.post('/create_product', async (req, res)=>{
 
 
 // Edit Product
-router.get("/edit_product", (req, res) => {
+router.get("/edit_product/:id", async(req, res) => {
+
+  const objID = new objectId(req.params.id)
+  const product = await db.collection('products').find({"_id":objID}).toArray()
+  const category = await db.collection('category').find({}).toArray()
+
   res.render("pages/backend/edit_product", {
     title: "Edit Products",
     heading: "Edit Products",
     layout: "./layouts/backend",
+    data:product,
+    category:category
   });
 });
+
+// Edit Product PUT
+router.put('/edit_product/:id/:resource', async (req, res)=>{
+  // console.log(req.params.id)
+
+  const objID = new objectId(req.params.id)
+  const product = await db.collection('products').find({"_id" : objID}).toArray()
+  const category = await db.collection('category').find({}).toArray()
+
+  // รับค่าจากฟอร์ม
+  let CategoryID = req.body.CategoryID
+  let ProductName = req.body.ProductName
+  let UnitPrice = req.body.UnitPrice
+  let UnitInStock = req.body.UnitInStock
+  let ProductPicture = req.body.ProductPicture
+  let curdatetime = moment(new Date()).format("YYYY-MM-DD HH:mm:ss")
+  let errors = false
+
+  // Validate ฟอร์มว่าป้อนข้อมูลครบหรือยัง
+  if(ProductName.length === 0 || UnitPrice === '' || UnitInStock === '')
+  {
+      errors = true
+      // แสดงข้อความแจ้งเตือน
+      req.flash('error','ป้อนข้อมูลในฟิลด์ให้ครบก่อน')
+      // ให้ทำการ reload ฟอร์ม
+      res.render(
+          'pages/backend/edit_product', 
+          { 
+              title: 'Edit Product', 
+              heading: 'Edit Product',
+              layout: './layouts/backend',
+              data: product,
+              category: category
+          }
+      )
+
+  }else{
+      // Update to mongodb
+      await db.collection('products').updateOne({ _id: objID}, 
+      {
+    $set: {
+      CategoryID: parseInt(CategoryID),
+              ProductName: ProductName,
+              UnitPrice: parseInt(UnitPrice),
+              ProductPicture: ProductPicture,
+              UnitInStock: parseInt(UnitInStock),
+              ModifiedDate: curdatetime
+    }
+  })
+
+      // แสดงข้อความแจ้งเตือน
+      req.flash('success','แก้ไขข้อมูลสินค้าเรียบร้อยแล้ว')
+
+      res.render(
+          'pages/backend/edit_product', 
+          { 
+              title: 'Edit Product', 
+              heading: 'Edit Product',
+              layout: './layouts/backend',
+              data: product,
+              category: category
+          }
+      )
+  }
+  
+})
 
 module.exports = router;

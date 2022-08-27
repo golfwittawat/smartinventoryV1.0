@@ -10,42 +10,55 @@
     <div class="row">
         <div class="col-md-6 offset-md-3 card">
             <div class="card-body">
-
-                <form action="/backend/edit_product" method="POST">
+                <% if(messages.error) { %>
+                    <div class="alert alert-danger" role="alert">
+                        <%-messages.error%>
+                    </div>
+                    <% } %>
+    
+                    <% if(messages.success) { %>
+                    <div class="alert alert-success" role="alert">
+                        <%-messages.success%>
+                    </div>
+                    <% } %>
+                <form action="/backend/edit_product/<%=data[0]._id%>/resource?_method=PUT" method="POST">
                     <div class="form-group row">
                         <label for="ProductName" class="col-md-4 col-form-label">Name</label>
                         <div class="col-md-8">
-                            <input type="text" class="form-control" name="ProductName">
+                            <input type="text" class="form-control" name="ProductName" value="<%=data[0].ProductName%>">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="CategoryID" class="col-md-4 col-form-label">Category</label>
                         <div class="col-md-8">
                             <select name="CategoryID" id="CategoryID" class="form-control">
-                                <option value="1">Mobile</option>
-                                <option value="2">Tablet</option>
-                                <option value="3">Head Phone</option>
-                                <option value="4">Labtop</option>
-                                <option value="5">Smart Watch</option>
+                                <%
+                                for(let row=0; row < category.length; row++)
+                                {
+                             %>
+                                 <option value="<%=category[row].CategoryID%>" <% if(data[0].CategoryID == category[row].CategoryID){%> selected <%}%>><%=category[row].CategoryName%></option>
+                             <%
+                                }
+                             %>
                             </select>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="UnitPrice" class="col-md-4 col-form-label">Price</label>
                         <div class="col-md-8">
-                            <input type="number" min="1" step="any" class="form-control" name="UnitPrice">
+                            <input type="number" min="1" step="any" class="form-control" name="UnitPrice"value="<%=data[0].UnitPrice%>">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="UnitInStock" class="col-md-4 col-form-label">Stock</label>
                         <div class="col-md-8">
-                            <input type="number" class="form-control" name="UnitInStock">
+                            <input type="number" class="form-control" name="UnitInStock"value="<%=data[0].UnitInStock%>">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="ProductPicture" class="col-md-4 col-form-label">Image URL</label>
                         <div class="col-md-8">
-                            <input type="text" class="form-control" name="ProductPicture">
+                            <input type="text" class="form-control" name="ProductPicture"value="<%=data[0].ProductPicture%>">
                         </div>
                     </div>
                     <div class="form-group row">
