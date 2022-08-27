@@ -375,4 +375,12 @@ router.put('/edit_product/:id/:resource', async (req, res)=>{
   
 })
 
+// DELETE Product
+router.delete('/delete_product/:id/:resource', async (req, res)=>{
+  const objID = new objectId(req.params.id)
+  await db.collection('products').deleteOne({"_id" : objID})
+  console.log(objID)
+  res.redirect('/backend/products')
+})
+
 module.exports = router;
