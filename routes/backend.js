@@ -4,6 +4,9 @@ const express = require("express");
 // Import Moment เพื่อไว้จัดรูปแบบวันที่
 const moment = require("moment");
 
+//Import CSV-Writer
+const createCsvWriter = require('csv-writer').createObjectCsvWriter
+
 //Import OjectID ของMongoDB
 const objectId = require("mongodb").ObjectId;
 
@@ -382,5 +385,13 @@ router.delete('/delete_product/:id/:resource', async (req, res)=>{
   console.log(objID)
   res.redirect('/backend/products')
 })
+
+//Export CSV Product
+router.get('/exportcsv_products',async(req,res) => {
+  const products = await bd.collection('products').aggregate
+})
+
+
+
 
 module.exports = router;
