@@ -466,7 +466,7 @@ router.get('/exportpdf_products', async (req, res) => {
   // Export PDF
   let file_pdf_name = "./pdfexport/product-"+moment(new Date()).format("YYYY-MM-DD-ss")+".pdf"
 
-  ejs.renderFile(path.join(__dirname,'../views/pages/backend/',"demopdf.ejs"),{
+  ejs.renderFile(path.join(__dirname,'../views/pages/backend/',"productrepotpdf.ejs"),{
       products:  products}, (err, data) => {
           if(err){
               res.send(err)
