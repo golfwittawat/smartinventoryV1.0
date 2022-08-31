@@ -7,6 +7,11 @@ const moment = require("moment");
 //Import CSV-Writer
 const createCsvWriter = require('csv-writer').createObjectCsvWriter
 
+// Import html-pdf
+const ejs = require('ejs')
+const pdf = require('html-pdf')
+const path = require('path')
+
 //Import OjectID ของMongoDB
 const objectId = require("mongodb").ObjectId;
 
@@ -388,9 +393,107 @@ router.delete('/delete_product/:id/:resource', async (req, res)=>{
 
 //Export CSV Product
 router.get('/exportcsv_products',async(req,res) => {
-  const products = await bd.collection('products').aggregate
+  // Lookup from category and products collection
+  const products = await db
+    .collection("products")
+    .aggregate([
+      {
+        $lookup: {
+          from: "category",
+          localField: "CategoryID",
+          foreignField: "CategoryID",
+          as: "category",
+        },
+      },
+      {
+        $match: {
+          products: { "$ne": [] },
+        },
+      },
+      {$sort:{
+        //"ProductID": -1
+        "_id":-1
+      }},
+    ])
+    .toArray();
+
+    //CSV Writer
+    //สร่างให้เซฟชื่อไฟล์
+    const file_csv_name = "./csvexport/product-"+moment(new Date()).format("YYYY-MM-DD-HH-mm-ss")+".csv"
+
+    //CSV Header 
+    const csvWriter = createCsvWriter({
+      path: file_csv_name,
+      header:[
+        {id:"ProductID",title:"ProductID"},
+        {id:"CategoryID",title:"CategoryID"},
+        {id:"ProductName",title:"ProductName"},
+        {id:"UnitPrice",title:"UnitPrice"},
+        {id:"UnitInStock",title:"UnitInStock"},
+      ]
+    })
+    csvWriter.writeRecords(products).then(() => {
+      res.download(file_csv_name)
+    })
 })
 
+// Export PDF Product
+router.get('/exportpdf_products', async (req, res) => {
+  const products = await db.collection('products').aggregate(
+      [
+          {
+             $lookup: {
+               from: 'category',
+               localField: 'CategoryID',
+               foreignField: 'CategoryID',
+               as: 'category'
+             } 
+          },
+          {
+              $match:{
+                  "products":{"$ne":[]}
+              }
+          },
+          { 
+              $sort: {
+                  // "ProductID": -1
+                  "_id": -1
+              }
+          },
+      ]
+  ).toArray()
+
+  // Export PDF
+  let file_pdf_name = "./pdfexport/product-"+moment(new Date()).format("YYYY-MM-DD-ss")+".pdf"
+
+  ejs.renderFile(path.join(__dirname,'../views/pages/backend/',"demopdf.ejs"),{
+      products:  products}, (err, data) => {
+          if(err){
+              res.send(err)
+          }else{
+              let options = {
+                  "height": "297mm",
+                  "width": "210mm",
+                  "borders":"1cm",
+                  "header": {
+                      "height": "20mm"
+                  },
+                  "footer": {
+                      "height": "20mm",
+                  },
+              }
+              pdf.create(data, options).toFile(file_pdf_name, function(err, data){
+                  if(err){
+                      res.send(err)
+                  }else{
+                      res.download(file_pdf_name)
+                  }
+              })
+          }
+
+      }
+  )
+})
 
 
 
