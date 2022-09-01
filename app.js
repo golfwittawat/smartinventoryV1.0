@@ -17,6 +17,9 @@ const methodOverride = require("method-override");
 const frontendRouter = require("./routes/frontend");
 // Import Router backend.js
 const backendRouter = require("./routes/backend");
+// Import Router api.js
+const apiRouter = require("./routes/api");
+
 
 // Create express object
 const app = express();
@@ -53,6 +56,7 @@ app.use(flash());
 // เรียกใช้งาน Routes
 app.use("/", frontendRouter);
 app.use("/backend", backendRouter);
+app.use("/api", apiRouter)
 
 // Run Express Server ที่ Port 5000
 app.listen(5000, () => {
